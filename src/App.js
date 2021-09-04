@@ -1,12 +1,11 @@
 // import logo from './logo.svg';
 import './App.css';
-import Route from './Routes/route'
+import Home from './Components/Home'
 function App() {
   return (
     <div className="App">
-<Route/>
+<Home/>
     </div>
   );
 }
-
 export default App;

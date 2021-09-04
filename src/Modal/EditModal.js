@@ -1,81 +1,56 @@
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 import React from "react";
 import { useState } from "react";
 import Axios from "axios";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import MuiDialogContent from "@material-ui/core/DialogContent";
-import MuiDialogActions from "@material-ui/core/DialogActions";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    margin: 0,
-    padding: theme.spacing(2),
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
   },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-});
-
-const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other} = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton
-          aria-label="close"
-          className={classes.closeButton}
-          onClick={onClose}
-        >
-          <i class="fas fa-times"></i>
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
-
-
-const DialogActions = withStyles((theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
+}));
 
 export default function Customized(props) {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(false);
   const [personDetails, setuserDetails] = useState({
     firstName: props.userDetails.firstName,
     lastName: props.userDetails.lastName,
     email: props.userDetails.email,
     phone: props.userDetails.phone,
-    id:props.userDetails.id
+    id: props.userDetails.id,
   });
-  
+
+
   const DialogContent = withStyles((theme) => ({
     root: {
       padding: theme.spacing(2),
     },
   }))(MuiDialogContent);
-  
+
   const onchangehandler = (e) => {
     setuserDetails({
       ...personDetails,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-
   };
   const onsubmithandler = async (e) => {
     e.preventDefault();
-    const Add = await Axios.put(`http://localhost:3002/posts/${personDetails.id}`, personDetails);
-    // History.push('/');
+    const status = await Axios.put(
+      `http://localhost:3002/posts/${personDetails.id}`,
+      personDetails
+    );
+    if (status.status == 201) {
+      alert(status.statusText);
+    } else {
+      alert(status.statusText || "Network Error");
+    }
   };
 
   const handleClickOpen = () => {
@@ -85,80 +60,74 @@ export default function Customized(props) {
     setOpen(false);
   };
 
+  const btnStyle = { marginTop: 20, width: 200 };
+  const classes = useStyles();
   return (
     <div>
-      {/* <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
-        edit
-      </Button> */}
+      <Button>
+        <i
+          class="fa fa-pencil-square"
+          aria-hidden="true"
+          onClick={() => handleClickOpen()}
+        ></i>
+      </Button>
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        {/* <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Edit here
-        </DialogTitle> */}
-        <DialogContent >
-          <div className="userscontainer">
-            <form className="form" onSubmit={onsubmithandler}>
-              <div className="usersformwrapper" onChange={onchangehandler}>
-                <div className="usersformbox">
-                  <label className="label">FirstName</label>
-                  <div className="inputtype">
-                    <input
-                      type="text"
-                      // onChange={onchangehandler}
-                      value={personDetails.firstName}
-                      name="firstName"
-                    />
-                  </div>
-                </div>
-                <div className="usersformbox">
-                  <label className="label">Username</label>
-                  <div className="inputtype">
-                    <input
-                      type="text"
-                      // onChange={onchangehandler}
-                      value={personDetails.lastName}
-                      name="lastName"
-                    />
-                  </div>
-                </div>
-                <div className="usersformbox" >
-                  <label className="label">Email</label>
-                  <div className="inputtype">
-                    <input
-                      type="email"
-                      value={personDetails.email}
-                      name="email"
-                    />
-                  </div>
-                </div>
-                <div className="usersformbox">
-                  <label className="label">PhoneNumber</label>
-                  <div className="inputtype">
-                    <input
-                      type="text"
-                      // onChange={onchangehandler}
-                      value={personDetails.phone}
-                      name="phone"
-                    />
-                  </div>
-                  <div className="usersformbox" id="btn5">
-                    <button className="btn4" type="data" onClick={handleClose}>
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
+        <DialogContent>
+          <form
+            onChange={onchangehandler}
+            className={classes.root}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              label="FirstName"
+              value={personDetails.firstName}
+              name="firstName"
+              id="standard-basic"
+            />
+            <TextField
+              label="LastName"
+              value={personDetails.lastName}
+              name="lastName"
+              id="standard-basic"
+            />
+            <TextField
+              label="Email"
+              value={personDetails.email}
+              name="email"
+              type="Email"
+              id="standard-basic"
+            />
+            <TextField
+              label="Phone"
+              value={personDetails.phone}
+              name="phone"
+              id="standard-basic"
+            />
+            <Button
+              type="submit"
+              style={btnStyle}
+              variant="contained"
+              color="secondary"
+              onClick={(e) => [handleClose(), onsubmithandler(e)]}
+            >
+              Submit
+            </Button>
+            <Button
+              type="submit"
+              style={btnStyle}
+              variant="contained"
+              color="secondary"
+              onClick={handleClose}
+            >
+              Cancel
+            </Button>
+          </form>
         </DialogContent>
-        {/* <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
-          </Button>
-        </DialogActions> */}
       </Dialog>
     </div>
   );

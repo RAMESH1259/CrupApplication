@@ -7,23 +7,16 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import CustomizedDialogs from "../Modal/dailogs";
+import ADDMODAL from "../Modal/dailogs";
 import EditModal from "../Modal/EditModal";
 import { loadUserDetails, deleteDetails } from "../Api/api";
-import Axios from "axios";
-function Home(props) {
+import ConfirmModal from "../Modal/confirmModal";
+function Home() {
   const [person, setperson] = useState([]);
-  const [open, setOpen] = React.useState(false);
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+
   useEffect(() => {
     getUserdetails();
   }, []);
@@ -42,7 +35,6 @@ function Home(props) {
       alert((result && result.response.statusText) || "network Error");
     }
   };
-
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -55,18 +47,6 @@ function Home(props) {
     },
   }));
   const classes = useStyles();
-  const [userDetails, setuserDetails] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-  });
-  const onsubmithandler = async (id) => {
-    // console.log("kjsksjk")
-    const result = await Axios.get(`http://localhost:3002/posts/${id}`);
-    setuserDetails(result.data);
-  };
-
   return (
     <>
       <div className={classes.root}>
@@ -75,7 +55,7 @@ function Home(props) {
             <Typography variant="h6" className={classes.title}>
               CRUD-APP
             </Typography>
-            <CustomizedDialogs />
+            <ADDMODAL getUserdetails={getUserdetails} />
             {/* <Button color="secondary" variant="contained"></Button>  */}
           </Toolbar>
         </AppBar>
@@ -102,29 +82,22 @@ function Home(props) {
                   <TableCell>{row.lastName}</TableCell>
                   <TableCell>{row.phone}</TableCell>
                   <TableCell>{row.email}</TableCell>
-                  <TableCell>
-                    <i
-                      class="fa fa-trash"
-                      aria-hidden="true"
-                      onClick={() => deleteUserDetails(row.id)}
-                    ></i>
-                    {""}--{""}{" "}
-                    <i
-                      class="fa fa-pencil-square"
-                      aria-hidden="true"
-                      onClick={() => onsubmithandler(row.id)}
-                    ></i>
+                  <TableCell component="th" scope="row" className="custom">
+                    <ConfirmModal
+                      id={row.id}
+                      deleteDetails={deleteUserDetails}
+                    />
+                    <EditModal
+                      userDetails={row}
+                      getUserdetails={getUserdetails}
+                    ></EditModal>
                   </TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
-        {userDetails.firstName?
-        <EditModal userDetails={userDetails}
-        />:""}
       </TableContainer>
     </>
   );
 }
-
 export default Home;
