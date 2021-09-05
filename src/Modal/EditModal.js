@@ -2,20 +2,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import React from "react";
 import { useState } from "react";
-import Axios from "axios";
-import { withStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
-import MuiDialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
+import DialogContent from '@material-ui/core/DialogContent';
 
 export default function Customized(props) {
   const [open, setOpen] = useState(false);
@@ -27,30 +16,11 @@ export default function Customized(props) {
     id: props.userDetails.id,
   });
 
-
-  const DialogContent = withStyles((theme) => ({
-    root: {
-      padding: theme.spacing(2),
-    },
-  }))(MuiDialogContent);
-
   const onchangehandler = (e) => {
     setuserDetails({
       ...personDetails,
       [e.target.name]: e.target.value,
     });
-  };
-  const onsubmithandler = async (e) => {
-    e.preventDefault();
-    const status = await Axios.put(
-      `http://localhost:3002/posts/${personDetails.id}`,
-      personDetails
-    );
-    if (status.status == 201) {
-      alert(status.statusText);
-    } else {
-      alert(status.statusText || "Network Error");
-    }
   };
 
   const handleClickOpen = () => {
@@ -60,26 +30,24 @@ export default function Customized(props) {
     setOpen(false);
   };
 
-  const btnStyle = { marginTop: 20, width: 200 };
-  const classes = useStyles();
+  const btnStyle = { marginTop: 20, width: 200, spacing: 10 };
   return (
-    <div>
-      <Button>
+    <div >
+      <Button color="primary" onClick={() => handleClickOpen()}>
         <i
           class="fa fa-pencil-square"
           aria-hidden="true"
-          onClick={() => handleClickOpen()}
         ></i>
       </Button>
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
+        aria-describedby="alert-dialog-description"
         open={open}
+        onChange={onchangehandler}
       >
         <DialogContent>
           <form
-            onChange={onchangehandler}
-            className={classes.root}
             noValidate
             autoComplete="off"
           >
@@ -112,8 +80,8 @@ export default function Customized(props) {
               type="submit"
               style={btnStyle}
               variant="contained"
-              color="secondary"
-              onClick={(e) => [handleClose(), onsubmithandler(e)]}
+              color="primary"
+              onClick={(e) => [handleClose(), props.onsubmithandler(personDetails)]}
             >
               Submit
             </Button>

@@ -84,8 +84,8 @@ export default function CustomizedDialogs(props) {
             <TextField label='Email' value={personDetails.email} name='email' type='Email' id="standard-basic" />
             <TextField label='Phone' value={personDetails.phone} name='phone' id="standard-basic" />
             <Button type='submit' style={btnStyle} variant='contained' color='secondary' onClick={handleClose}>Submit</Button>
-          </form>
             <Button type='submit' style={btnStyle} variant='contained' color='secondary' onClick={handleClose} >Cancel</Button>
+          </form>
         </DialogContent>
       </Dialog>
     </div>

@@ -12,7 +12,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import ADDMODAL from "../Modal/dailogs";
 import EditModal from "../Modal/EditModal";
-import { loadUserDetails, deleteDetails } from "../Api/api";
+import { loadUserDetails, deleteDetails, updateDetails } from "../Api/api";
 import ConfirmModal from "../Modal/confirmModal";
 function Home() {
   const [person, setperson] = useState([]);
@@ -33,6 +33,16 @@ function Home() {
       getUserdetails();
     } else {
       alert((result && result.response.statusText) || "network Error");
+    }
+  };
+  const EditFormHandler = async (personDetails) => {
+    // e.preventDefault();
+    const status = updateDetails(personDetails)
+    if (status.status == 201) {
+      alert(status.statusText);
+      getUserdetails();
+    } else {
+      alert(status.statusText || "Network Error");
     }
   };
   const useStyles = makeStyles((theme) => ({
@@ -90,6 +100,7 @@ function Home() {
                     <EditModal
                       userDetails={row}
                       getUserdetails={getUserdetails}
+                      onsubmithandler={EditFormHandler}
                     ></EditModal>
                   </TableCell>
                 </TableRow>
