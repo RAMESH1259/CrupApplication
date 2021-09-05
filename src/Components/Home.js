@@ -35,11 +35,11 @@ function Home() {
       alert((result && result.response.statusText) || "network Error");
     }
   };
-  
+
   const EditFormHandler = async (personDetails) => {
     // e.preventDefault();
     const status = await updateDetails(personDetails)
-    if (status.status == "201") {
+    if (status.status == 201) {
       alert(status.statusText);
     } else {
       alert(status.statusText || "Network Error");

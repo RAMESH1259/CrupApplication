@@ -5,7 +5,14 @@ import { useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import DialogContent from '@material-ui/core/DialogContent';
-
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+}));
 export default function Customized(props) {
   const [open, setOpen] = useState(false);
   const [personDetails, setuserDetails] = useState({
@@ -29,7 +36,7 @@ export default function Customized(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const classes = useStyles();
   const btnStyle = { marginTop: 20, width: 200, spacing: 10 };
   return (
     <div >
@@ -42,12 +49,13 @@ export default function Customized(props) {
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
-        aria-describedby="alert-dialog-description"
+        // aria-describedby="alert-dialog-description"
         open={open}
         onChange={onchangehandler}
       >
-        <DialogContent>
+        <DialogContent dividers>
           <form
+          className={classes.root}
             noValidate
             autoComplete="off"
           >
