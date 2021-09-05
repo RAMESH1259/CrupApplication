@@ -19,10 +19,7 @@ export const deleteDetails = async (id) => {
 }
 export const updateDetails = async (personDetails) => {
     try {
-        let result = await axios.put(
-            `${api}${personDetails.id}`,
-            personDetails
-          );
+        let result = await axios.put(`${api}${personDetails.id}`,personDetails);
         return result
     } catch (error) {
         return error

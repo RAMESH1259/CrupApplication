@@ -35,12 +35,12 @@ function Home() {
       alert((result && result.response.statusText) || "network Error");
     }
   };
+  
   const EditFormHandler = async (personDetails) => {
     // e.preventDefault();
-    const status = updateDetails(personDetails)
-    if (status.status == 201) {
+    const status = await updateDetails(personDetails)
+    if (status.status == "201") {
       alert(status.statusText);
-      getUserdetails();
     } else {
       alert(status.statusText || "Network Error");
     }
