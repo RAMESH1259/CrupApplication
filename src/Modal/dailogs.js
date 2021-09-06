@@ -7,6 +7,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import MuiDialogContent from "@material-ui/core/DialogContent";
+import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +49,10 @@ export default function CustomizedDialogs(props) {
   };
   const onsubmithandler = async (e) => {
     e.preventDefault();
+    if(!personDetails.length) {
+      alert("please fill the all field")
+    } 
+    else{
     const Add = await Axios.post("http://localhost:3002/posts", personDetails);
     if (Add.status == 201) {
       props.getUserdetails()
@@ -56,6 +61,8 @@ export default function CustomizedDialogs(props) {
     else {
       alert(Add.statusText || "Ntwork error")
     }
+    handleClose()
+  }
   };
 
   const handleClickOpen = () => {
@@ -66,6 +73,7 @@ export default function CustomizedDialogs(props) {
   };
   const classes = useStyles();
   const btnStyle = { marginTop: 20, width: 200 }
+  // const btnStyle1={background-color:red}
 
   return (
     <div>
@@ -77,15 +85,14 @@ export default function CustomizedDialogs(props) {
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-
         <DialogContent dividers>
-          <form onChange={onchangehandler} onSubmit={onsubmithandler} className={classes.root} noValidate autoComplete="off">
+          <form type='submit' onChange={onchangehandler} onSubmit={onsubmithandler} className={classes.root} noValidate autoComplete="off">
             <TextField label='FirstName' value={personDetails.firstName} name='firstName' id="standard-basic" />
             <TextField label='LastName' value={personDetails.lastName} name='lastName' id="standard-basic" />
             <TextField label='Email' value={personDetails.email} name='email' type='Email' id="standard-basic" />
             <TextField label='Phone' value={personDetails.phone} name='phone' id="standard-basic" />
-            <Button type='submit' style={btnStyle} variant='contained' color='secondary' onClick={handleClose}>Submit</Button>
-            <Button type='submit' style={btnStyle} variant='contained' color='secondary' onClick={handleClose} >Cancel</Button>
+            <Button type='submit' style={btnStyle} variant='contained' color='primary' >Submit</Button>
+            <Button style={btnStyle} variant='contained' color='secondary' onClick={handleClose} >Cancel</Button>
           </form>
         </DialogContent>
       </Dialog>

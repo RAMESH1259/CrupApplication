@@ -5,3 +5,13 @@ div#root
 th.MuiTableCell-root.MuiTableCell-body.custom {
   display: flex;
 }
+/* .MuiButtonBase-root
+{
+  background-color: brown;
+} */
+button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedSecondary {
+  background-color: white;
+}
+.MuiDialogContent-root.MuiDialogContent-dividers {
+  width: 432px;
+}

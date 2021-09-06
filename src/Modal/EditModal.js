@@ -4,12 +4,12 @@ import React from "react";
 import { useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
-import DialogContent from '@material-ui/core/DialogContent';
+import DialogContent from "@material-ui/core/DialogContent";
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: "25ch",
     },
   },
 }));
@@ -39,12 +39,9 @@ export default function Customized(props) {
   const classes = useStyles();
   const btnStyle = { marginTop: 20, width: 200, spacing: 10 };
   return (
-    <div >
+    <div>
       <Button color="primary" onClick={() => handleClickOpen()}>
-        <i
-          class="fa fa-pencil-square"
-          aria-hidden="true"
-        ></i>
+        <i class="fa fa-pencil-square" aria-hidden="true"></i>
       </Button>
       <Dialog
         onClose={handleClose}
@@ -54,11 +51,7 @@ export default function Customized(props) {
         onChange={onchangehandler}
       >
         <DialogContent dividers>
-          <form
-          className={classes.root}
-            noValidate
-            autoComplete="off"
-          >
+          <form className={classes.root} noValidate autoComplete="off">
             <TextField
               label="FirstName"
               value={personDetails.firstName}
@@ -89,7 +82,10 @@ export default function Customized(props) {
               style={btnStyle}
               variant="contained"
               color="primary"
-              onClick={(e) => [handleClose(), props.onsubmithandler(personDetails)]}
+              onClick={(e) => [
+                handleClose(),
+                props.onsubmithandler(personDetails),
+              ]}
             >
               Submit
             </Button>
