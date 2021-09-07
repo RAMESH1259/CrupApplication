@@ -14,6 +14,9 @@ import ADDMODAL from "../Modal/dailogs";
 import EditModal from "../Modal/EditModal";
 import { loadUserDetails, deleteDetails, updateDetails } from "../Api/api";
 import ConfirmModal from "../Modal/confirmModal";
+import  {Link}  from 'react-router-dom';
+import { Button } from "@material-ui/core";
+
 function Home() {
   const [person, setperson] = useState([]);
 
@@ -59,6 +62,7 @@ function Home() {
   const classes = useStyles();
   return (
     <>
+    <Link to='/Registration'><Button type="button" variant='contained' color='primary' style={{marginBottom:10}}>Registration</Button></Link>
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>

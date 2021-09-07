@@ -25,3 +25,11 @@ export const updateDetails = async (personDetails) => {
         return error
     }
 }
+export const AddUserDetails = async (personDetails) => {
+    try {
+        let result = await axios.post(`${api}`,personDetails);
+        return result
+    } catch (error) {
+        return error
+    }
+}

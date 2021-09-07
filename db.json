@@ -50,11 +50,20 @@
       "id": 22
     },
     {
-      "firstName": "Ramesh",
-      "lastName": "Kumar",
-      "email": "rkm65156@gmail.com",
-      "phone": "09899856206",
+      "firstName": "NAAVYA",
+      "lastName": "MEHTA",
+      "email": "ganeshmehta889@gmail.com",
+      "phone": "08802727770",
+      "password": "shbhjdbhjbd",
       "id": 23
+    },
+    {
+      "firstName": "SHANKER",
+      "lastName": "PRASAD",
+      "email": "ganeshmehta889@gmail.com",
+      "phone": "09899856206",
+      "password": "hghadsghjdsj",
+      "id": 24
     }
   ],
   "comments": [],

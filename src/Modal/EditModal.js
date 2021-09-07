@@ -15,12 +15,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Customized(props) {
   const [open, setOpen] = useState(false);
+  const { firstName, lastName, email, phone, id } = props.userDetails
   const [personDetails, setuserDetails] = useState({
-    firstName: props.userDetails.firstName,
-    lastName: props.userDetails.lastName,
-    email: props.userDetails.email,
-    phone: props.userDetails.phone,
-    id: props.userDetails.id,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    phone: phone,
+    id: id,
   });
 
   const onchangehandler = (e) => {

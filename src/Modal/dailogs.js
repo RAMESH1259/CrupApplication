@@ -2,12 +2,12 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { useState } from "react";
-import Axios from "axios";
+// import Axios from "axios";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import MuiDialogContent from "@material-ui/core/DialogContent";
-import { red } from "@material-ui/core/colors";
+import { AddUserDetails } from "../Api/api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,7 +53,7 @@ export default function CustomizedDialogs(props) {
       alert("please fill the all field")
     } 
     else{
-    const Add = await Axios.post("http://localhost:3002/posts", personDetails);
+    const Add = await AddUserDetails(personDetails);
     if (Add.status == 201) {
       props.getUserdetails()
       emptystate()
