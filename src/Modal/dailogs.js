@@ -9,14 +9,14 @@ import Dialog from "@material-ui/core/Dialog";
 import MuiDialogContent from "@material-ui/core/DialogContent";
 import { AddUserDetails } from "../Api/api";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
     },
-  },
-}));
+  }));
 
 const DialogContent = withStyles((theme) => ({
   root: {
@@ -87,10 +87,10 @@ export default function CustomizedDialogs(props) {
       >
         <DialogContent dividers>
           <form type='submit' onChange={onchangehandler} onSubmit={onsubmithandler} className={classes.root} noValidate autoComplete="off">
-            <TextField label='FirstName' value={personDetails.firstName} name='firstName' id="standard-basic" />
-            <TextField label='LastName' value={personDetails.lastName} name='lastName' id="standard-basic" />
-            <TextField label='Email' value={personDetails.email} name='email' type='Email' id="standard-basic" />
-            <TextField label='Phone' value={personDetails.phone} name='phone' id="standard-basic" />
+            <TextField label='firstName' value={personDetails.firstName} name='firstName' id="standard-basic" />
+            <TextField label='lastName' value={personDetails.lastName} name='lastName' id="standard-basic" />
+            <TextField label='email' value={personDetails.email} name='email' type='Email' id="standard-basic" />
+            <TextField label='phone' value={personDetails.phone} name='phone' id="standard-basic" />
             <Button type='submit' style={btnStyle} variant='contained' color='primary' >Submit</Button>
             <Button style={btnStyle} variant='contained' color='secondary' onClick={handleClose} >Cancel</Button>
           </form>

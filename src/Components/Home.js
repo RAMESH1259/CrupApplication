@@ -62,7 +62,7 @@ function Home() {
   const classes = useStyles();
   return (
     <>
-    <Link to='/Registration'><Button type="button" variant='contained' color='primary' style={{marginBottom:10}}>Registration</Button></Link>
+    <Link style={{textDecorationLine:"none"}} to='/Registration'><Button type="button" variant='contained' color='primary' style={{marginBottom:10}}>Registration</Button></Link>
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>

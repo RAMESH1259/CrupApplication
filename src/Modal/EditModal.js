@@ -62,7 +62,7 @@ export default function Customized(props) {
             <TextField
               label="LastName"
               value={personDetails.lastName}
-              name="lastName"
+              name="LastName"
               id="standard-basic"
             />
             <TextField
