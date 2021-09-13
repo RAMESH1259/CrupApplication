@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import { TableRow, TableHead, TableContainer, TableCell, TableBody, Table, Paper, AppBar, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import ADDMODAL from "../Modal/dailogs";
 import EditModal from "../Modal/EditModal";
 import { loadUserDetails, deleteDetails, updateDetails } from "../Api/api";
 import ConfirmModal from "../Modal/confirmModal";
-import  {Link}  from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from "@material-ui/core";
+import { Redirect } from 'react-router'
 
 function Home() {
   const [person, setperson] = useState([]);
@@ -62,7 +54,8 @@ function Home() {
   const classes = useStyles();
   return (
     <>
-    <Link style={{textDecorationLine:"none"}} to='/Registration'><Button type="button" variant='contained' color='primary' style={{marginBottom:10}}>Registration</Button></Link>
+      <Redirect to='/stepperform' />
+      <Link style={{ textDecorationLine: "none" }} to='/Registration'><Button type="button" variant='contained' color='primary' style={{ marginBottom: 10 }}>Registration</Button></Link>
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>

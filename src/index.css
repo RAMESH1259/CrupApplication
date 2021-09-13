@@ -15,3 +15,32 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedSe
 .MuiDialogContent-root.MuiDialogContent-dividers {
   width: 432px;
 }
+.container-home {
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 14px;
+  margin: 30px auto auto auto;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+.MuiStepper-root {
+  padding: 12px;
+  margin-bottom: 8px;
+}
+.home-title {
+  background-color: rgb(102, 102, 189);
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 14px;
+  margin: auto auto -30px auto;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.form-1 {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}

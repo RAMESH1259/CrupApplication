@@ -103,9 +103,10 @@ function Registration() {
   };
 
   function onDragEnd(result) {
+    // console.log("sooraj",result.source.index)
     let items = [];
-    const { source, destination } = result;
     // console.log(result.source.index)
+    const { source, destination } = result;
     if (!destination || source.droppableId !== "droppable") {
       return;
     }
@@ -128,9 +129,9 @@ function Registration() {
 
       usersClone.splice(userIndex, 0, result);
       setUsers(usersClone);
-      // let sourceIndex=result.source.index;
-      // const newList = generalForm.splice(sourceIndex, 1);
-      // console.log(newList)
+      let sourceIndex=source.index;
+      // generalForm.splice(sourceIndex, 1);
+      console.log(sourceIndex)
       // setGeneralForm(newList)
     }
   }
