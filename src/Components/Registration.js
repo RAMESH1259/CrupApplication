@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
 import {
-  Grid,
   Paper,
   Button,
   Typography,
@@ -15,6 +14,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { object } from "yup";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
   field: {
     margin: theme.spacing(1),
   },
+  margin1: {
+    marginBottom: theme.spacing(2),
+  },
   group: {
     display: "flex",
     flexWrap: "wrap",
@@ -42,30 +45,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Registration() {
+  let FormId = Math.floor(Math.random() * 1000000000)
   const form = [
-    { id: "fristname-1", firstName: "" },
-    { id: "lastname-1", lastName: "" },
-    { id: "email-1", email: "" },
+    { id: `fristname-${FormId}`, firstName: "", label: "firstName" },
+    { id: `lastname-${FormId}`, lastName: "", label: "lastName" },
+    { id: `email-${FormId}`, email: "", label: "email" },
   ];
   const [users, setUsers] = useState([form]);
-  const [generalForm, setGeneralForm] = useState([
-    { id: "firstname-2", firstName: "" },
-    { id: "lastname-2", lastName: "" },
-    { id: "email-2", email: "" },
-    { id: "phone-2", phone: "" },
-  ]);
+  let letId = Math.floor(Math.random() * 1000000000)
 
-  //   const userDetails = () => {
-  //     setusers([...users, details]);
-  //   };
-    const changeHandler = (e, index) => {
-      const updateuser = users.map((user, i) =>
-        index === i
-          ? Object.assign(user, { [e.target.name]: e.target.value })
-          : user
-      );
-      setUsers(updateuser);
-    };
+  const [generalForm, setGeneralForm] = useState([
+    { id: `fristname-${letId}`, firstName2: "", label: "firstName2" },
+    // { id: `lastname-${FormId}`, lastName: "" },
+    // { id: `email-${FormId}`, email: "" },
+  ]);
+  const Addfield = () => {
+    let letId = Math.floor(Math.random() * 1000000000)
+    const TempgeneralForm = { id: `${letId}`, firstname2: "", label: "firstname2" }
+    let arr = [...generalForm, TempgeneralForm]
+    setGeneralForm(arr)
+  }
+
+  const changeHandler = (e, abc) => {
+    const updateuser = users.map((user, i) => user.map((item, id) =>
+      item.id == abc ? Object.assign(item, { [e.target.name]: e.target.value }) : item
+    ))
+    setUsers(updateuser)
+  }
 
   const addUser = () => {
     let arr = [...users, form];
@@ -99,7 +105,7 @@ function Registration() {
   function onDragEnd(result) {
     let items = [];
     const { source, destination } = result;
-    // dropped outside the list
+    // console.log(result.source.index)
     if (!destination || source.droppableId !== "droppable") {
       return;
     }
@@ -122,6 +128,10 @@ function Registration() {
 
       usersClone.splice(userIndex, 0, result);
       setUsers(usersClone);
+      // let sourceIndex=result.source.index;
+      // const newList = generalForm.splice(sourceIndex, 1);
+      // console.log(newList)
+      // setGeneralForm(newList)
     }
   }
 
@@ -166,21 +176,24 @@ function Registration() {
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
+
                             >
                               <TextField
-                                label={item.id}
+                                label={item.label}
                                 // placeholder={`Enter your ${item.id}`}
                                 variant="outlined"
-                                name={item.id}
-                                onChange={(e) => changeHandler(e, index)}
+                                name={item.label}
+                                onChange={(e) => changeHandler(e, item.id)}
                                 value={item.firstName}
                                 className={classes.field}
+                                autoFocus
+                                style={{ marginTop: '19px' }}
                               ></TextField>
                             </span>
                           )}
                         </Draggable>
                       ))}
-                      {i > 0 && (
+                      {users.length > 1 && (
                         <IconButton
                           style={{ color: "blue" }}
                           onClick={() => removeUser(i)}
@@ -210,19 +223,27 @@ function Registration() {
                           {...provided.dragHandleProps}
                         >
                           <TextField
-                            label={item.id}
+                            label={item.label}
                             placeholder={`Enter your ${item.id}`}
                             variant="outlined"
                             name={item.id}
-                            onChange={(e) => changeHandler(e, index)}
-                            value={item.id}
+                            // onChange={(e) => changeHandler(e, index)}
+                            value={item.firstName2}
                             fullWidth
-                            style={{ padding: "5px 0" }}
+                            style={{ marginTop: "15px" }}
                           ></TextField>
                         </div>
                       )}
                     </Draggable>
                   ))}
+                  <Button
+                    variant="contained"
+                    className={classes.btncss}
+                    color="default"
+                    onClick={Addfield}
+                  >
+                    Add field
+                  </Button>
                   {provided.placeholder}
                 </div>
               )}

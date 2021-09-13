@@ -2,8 +2,6 @@ import React from 'react'
 import {Route, BrowserRouter, Switch} from 'react-router-dom'
 import Home from '../Components/Home'
 import Registration from '../Components/Registration'
-// import Home from '../components/home'
-// import Adminlogin from '../components/admin-login'
 
 export default class Routes extends React.Component {
   render() {
