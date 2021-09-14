@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { TableRow, TableHead, TableContainer, TableCell, TableBody, Table, Paper, AppBar, Toolbar, Typography } from "@material-ui/core";
+ import { TableRow, TableHead, TableContainer, TableCell, TableBody, Table, Paper, AppBar, Toolbar, Typography } from "@material-ui/core";
+import { CSVLink, CSVDownload } from "react-csv";
 import { makeStyles } from "@material-ui/core/styles";
 import ADDMODAL from "../Modal/dailogs";
 import EditModal from "../Modal/EditModal";
@@ -52,6 +53,18 @@ function Home() {
     },
   }));
   const classes = useStyles();
+  const headers=[
+    {label:'Id',key:'id'},
+    {label:'FirstName',key:'firstName'},
+    {label:'LastName',key:'lastName'},
+    {label:'Phone',key:'phone'},
+    {label:'Email',key:'email'}
+  ]
+  const csvReport={
+    filename:'Report.csv',
+    headers:headers,
+    data:person
+  }
   return (
     <>
       <Redirect to='/stepperform' />
@@ -104,6 +117,7 @@ function Home() {
               ))}
           </TableBody>
         </Table>
+<CSVLink {...csvReport}>CSV FIle</CSVLink>
       </TableContainer>
     </>
   );
